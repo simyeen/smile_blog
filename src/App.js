@@ -1,11 +1,18 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { firestore } from "./firebase";
+import React from "react";
+import { Route } from "react-router-dom";
+
+import HomePage from "./Pages/HomePage";
+import WritePage from "./Pages/WritePage";
+import AdminPage from "./Pages/AdminPage";
 
 function App() {
-  const db = firestore;
-
-  return <>테스팅</>;
+  return (
+    <>
+      <Route component={HomePage} path="/" exact />
+      <Route component={WritePage} path="/write" />
+      <Route component={AdminPage} path="/admin" />
+    </>
+  );
 }
 
 export default App;
