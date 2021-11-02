@@ -13,7 +13,12 @@ const PostList = () => {
   return (
     <PostListBlock>
       {dummys.map((item) => {
-        return <Post />;
+        return (
+          <>
+            {item}
+            <Post />
+          </>
+        );
       })}
     </PostListBlock>
   );

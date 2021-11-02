@@ -14,6 +14,10 @@ const StyledForm = styled.div`
     css`
       background: ${background};
     `};
+
+  @media only screen and (min-width: 414px) {
+    padding: 0, 0;
+  }
 `;
 
 const Form = ({ children, ...rest }) => {
