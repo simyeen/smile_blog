@@ -25,8 +25,11 @@ const Cotainer = styled.div`
 
 const MoveText = styled.p`
   display: inline;
-  margin-right: 10px;
+  margin-right: 20px;
   font-weight: 500;
+  &:hover {
+    font-weight: 700;
+  }
 `;
 
 const Header = () => {

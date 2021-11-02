@@ -1,10 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import Post from "./Post";
 
-const PostListBlock = styled.div``;
+const PostListBlock = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 const PostList = () => {
-  return <PostListBlock>나는 포스트리스트</PostListBlock>;
+  const dummys = [1, 2, 3, 4, 5, 6, 7, 1, 1, 1, 1, 1];
+
+  return (
+    <PostListBlock>
+      {dummys.map((item) => {
+        return <Post />;
+      })}
+    </PostListBlock>
+  );
 };
 
 export default PostList;
