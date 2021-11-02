@@ -7,18 +7,11 @@ const PostListBlock = styled.div`
   flex-wrap: wrap;
 `;
 
-const PostList = () => {
-  const dummys = [1, 2, 3, 4, 5, 6, 7, 1, 1, 1, 1, 1];
-
+const PostList = ({ postList }) => {
   return (
     <PostListBlock>
-      {dummys.map((item) => {
-        return (
-          <>
-            {item}
-            <Post />
-          </>
-        );
+      {postList.map((post, idx) => {
+        return <Post key={idx} post={post} />;
       })}
     </PostListBlock>
   );

@@ -21,17 +21,12 @@ const PostTitle = styled.div``;
 
 const PostDesc = styled.div``;
 
-const Post = () => {
+const Post = ({ post }) => {
   return (
     <PostBlock>
       <PostImg />
-      <PostTitle>안녕 나는 포스트</PostTitle>
-      <PostDesc>
-        안녕 나는 설명안녕 나는 설명안녕 나는 설명안녕 나는 설명안녕 나는
-        설명안녕 나는 설명안녕 나는 설명안녕 나는 설명안녕 나는 설명안녕 나는
-        설명안녕 나는 설명안녕 나는 설명안녕 나는 설명안녕 나는 설명안녕 나는
-        설명안녕 나는 설명
-      </PostDesc>
+      <PostTitle>{post.title}</PostTitle>
+      <PostDesc>{post.desc}</PostDesc>
     </PostBlock>
   );
 };
