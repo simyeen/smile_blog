@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import AdminPresenter from "./AdminPresenter";
+import AdminPresenter from "../../Components/admin/AdminPresenter";
 
 const AdminContainerBlock = styled.div``;
 
 const AdminContainer = () => {
-  return <AdminPresenter></AdminPresenter>;
+  return (
+    <AdminContainerBlock>
+      <AdminPresenter />
+    </AdminContainerBlock>
+  );
 };
 
 export default AdminContainer;
