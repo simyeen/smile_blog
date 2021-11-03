@@ -47,7 +47,13 @@ const CommentInput = styled.input`
   margin-bottom: 16px;
 `;
 
-const PostView = ({ form }) => {
+const CommentBox = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: ${color.orange5};
+`;
+
+const PostView = ({ form, value, comments, onSubmit, onRemove, onChange }) => {
   const { title, desc, date } = form;
 
   return (
@@ -61,14 +67,32 @@ const PostView = ({ form }) => {
       <Padding />
       <PostDesc dangerouslySetInnerHTML={{ __html: `${desc}` }}></PostDesc>
       <Padding height={3} />
-
-      <PostTitle style={{ fontSize: "18px" }}>댓글을 달아주세요.</PostTitle>
+      <PostTitle style={{ fontSize: "18px" }}>댓글을 달아주세요!</PostTitle>
       <Padding height={1} />
       <CommentBlock>
-        <CommentInput placeholder="입력하기"></CommentInput>
-
+        <CommentInput
+          value={value}
+          placeholder="입력하기"
+          onChange={onChange}
+        ></CommentInput>
+        {comments.map((c, idx) => {
+          return (
+            <CommentBox key={idx}>
+              <Row>
+                <Text>{c.text}</Text>
+                <StyledButton
+                  onClick={() => {
+                    onRemove(c.id);
+                  }}
+                >
+                  삭제하기
+                </StyledButton>
+              </Row>
+            </CommentBox>
+          );
+        })}
         <Row>
-          <StyledButton>등록하기</StyledButton>
+          <StyledButton onClick={onSubmit}>등록하기</StyledButton>
         </Row>
       </CommentBlock>
     </PostViewBlock>

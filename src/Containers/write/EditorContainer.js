@@ -30,6 +30,7 @@ const EditorContainer = ({ history }) => {
       title: title,
       desc: desc,
       date: new Date().toLocaleString(),
+      comments: [],
     };
 
     if (!checkForm(form)) return;

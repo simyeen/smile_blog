@@ -6,7 +6,6 @@ import { Helmet } from "react-helmet-async";
 const WritePage = () => {
   return (
     <>
-      <HeaderContaner />
       <EditorContainer />
     </>
   );
