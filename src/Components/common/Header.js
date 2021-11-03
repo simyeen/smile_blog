@@ -1,12 +1,9 @@
-import React, { useCallback, useContext } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import Padding from "./Padding";
-import Button from "./Button";
-import Text from "./Text";
 import Responsive from "./Responsive";
 import { NavLink } from "react-router-dom";
 import color from "../../lib/styles/color";
-import { useState } from "react/cjs/react.development";
 
 const HeaderBlock = styled.div`
   position: fixed;

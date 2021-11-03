@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import Form from "../common/Form";
-import color from "../../lib/styles/color";
 import Line from "../common/Line";
 import Padding from "../common/Padding";
 
