@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Form from "../../Components/common/Form";
 import PostList from "../../Components/post/PostList";

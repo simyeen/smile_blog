@@ -12,6 +12,8 @@ const buttonStyle = css`
   width: 150px;
   height: 60px;
 
+  font-size: 1.2rem;
+
   outline: none;
   border: none;
   border-radius: 8px;
