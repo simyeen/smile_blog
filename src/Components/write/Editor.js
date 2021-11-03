@@ -28,7 +28,7 @@ const Editor = ({ handleTitle, setDesc }) => {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        setDesc(quill.getText());
+        setDesc(quill.root.innerHTML);
         //console.log(quill.getText()); // Get text only
         //console.log(quill.root.innerHTML); // Get innerHTML using quill
       });

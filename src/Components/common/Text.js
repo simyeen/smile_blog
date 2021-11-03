@@ -4,7 +4,7 @@ import color from "../../lib/styles/color";
 
 const StyledText = styled.p`
   margin: 0;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -29,30 +29,6 @@ const StyledText = styled.p`
       text-align: ${props.textAlign};
     `}
 
-    ${(props) =>
-    props.gray &&
-    css`
-      color: ${color.gray[400]};
-    `}
-
-    ${(props) =>
-    props.white &&
-    css`
-      color: ${color.white};
-    `};
-
-  ${(props) =>
-    props.red &&
-    css`
-      color: ${color.red};
-    `};
-
-  ${(props) =>
-    props.closed &&
-    css`
-      color: var(--black);
-    `}
-
   ${(props) =>
     props.marginLeft &&
     css`
@@ -69,24 +45,6 @@ const StyledText = styled.p`
     props.marginBottom &&
     css`
       margin-bottom: ${props.marginBottom}rem;
-    `};
-
-  ${(props) =>
-    props.error &&
-    css`
-      margin-top: 0.3rem;
-      margin-left: 1.2rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: ${color.red};
-    `};
-
-  ${(props) =>
-    props.input &&
-    css`
-      margin-left: 0.8rem;
-      font-size: 1.6rem;
-      font-weight: 400;
     `};
 
   ${(props) =>

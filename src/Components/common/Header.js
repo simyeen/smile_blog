@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Padding from "./Padding";
+import Text from "./Text";
 import Responsive from "./Responsive";
 import { NavLink } from "react-router-dom";
 import color from "../../lib/styles/color";
@@ -39,12 +40,31 @@ const Category = styled(NavLink)`
   }
 `;
 
+const TitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+`;
+
+const Img = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+`;
+
 const Header = ({ categories }) => {
   return (
     <>
       <HeaderBlock>
         <Wrapper>
-          <h1>스마일 블로그 😁</h1>
+          <TitleDiv>
+            <Text fontSize={32} fontWeight={1000}>
+              스마일 블로그
+            </Text>
+            <Img src={process.env.PUBLIC_URL + "/favicon.ico"} />
+          </TitleDiv>
+
           <Cotainer>
             {categories.map((c) => (
               <Category
