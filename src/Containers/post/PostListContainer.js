@@ -14,16 +14,18 @@ const PostListContainer = () => {
       .get()
       .then((docs) => {
         const getList = [];
-        docs.forEach((doc) => getList.push(doc.data()));
+        docs.forEach((doc) => {
+          getList.push({ ...doc.data(), id: doc.id });
+        });
         getList.sort((a, b) => {
           const regex = /[^0-9]/g;
           let one = a.date.replace(regex, "");
           let two = b.date.replace(regex, "");
           return parseInt(two) - parseInt(one);
         });
-
         setPostList(getList);
       });
+
     console.log("post", postList);
   }, []);
 
