@@ -17,6 +17,8 @@ const PostImg = styled.img`
   height: 200px;
 `;
 
+const PostData = styled.div``;
+
 const PostTitle = styled.div``;
 
 const PostDesc = styled.div``;
@@ -25,6 +27,8 @@ const Post = ({ post }) => {
   return (
     <PostBlock>
       <PostImg />
+      {console.log(post)}
+      <PostData>{post.date}</PostData>
       <PostTitle>{post.title}</PostTitle>
       <PostDesc>{post.desc}</PostDesc>
     </PostBlock>

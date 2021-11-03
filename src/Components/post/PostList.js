@@ -10,9 +10,11 @@ const PostListBlock = styled.div`
 const PostList = ({ postList }) => {
   return (
     <PostListBlock>
-      {postList.map((post, idx) => {
-        return <Post key={idx} post={post} />;
-      })}
+      {postList.length === 0 && <p>아직 작성된 글이 없습니다.</p>}
+      {postList.length !== 0 &&
+        postList.map((post, idx) => {
+          return <Post key={idx} post={post} />;
+        })}
     </PostListBlock>
   );
 };

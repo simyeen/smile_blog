@@ -9,7 +9,7 @@ const buttonStyle = css`
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: 150px;
   height: 60px;
 
   outline: none;
@@ -18,64 +18,15 @@ const buttonStyle = css`
   color: ${color.black};
 
   background: ${color.orange};
-
-  font-weight: 700;
+  font-weight: 500;
   font-stretch: normal;
   line-height: 1.4;
   letter-spacing: -0.4px;
   text-align: center;
 
+  margin-right: 15px;
+
   cursor: pointer;
-
-  ${(props) =>
-    props.full &&
-    css`
-      border-radius: 0px;
-
-      font-weight: 500;
-    `}
-
-  ${(props) =>
-    props.white &&
-    css`
-      border: 1px solid ${color.gray[200]};
-      background: ${color.white};
-      color: black;
-    `}
-
-    ${(props) =>
-    props.closed &&
-    css`
-      background: ${color.gray[100]};
-      color: ${color.gray[200]};
-
-      font-weight: 500;
-    `}
-
-    ${(props) =>
-    props.fontWeight &&
-    css`
-      font-weight: ${props.fontWeight};
-    `}
-
-    ${(props) => props.fontSize && css``}
-
-    ${(props) =>
-    props.hover &&
-    css`
-      background: ${color.orange5};
-      border: 2px solid ${color.orange};
-      font-weight: 700;
-    `}
-    
-    ${(props) =>
-    props.active &&
-    css`
-      color: ${color.black};
-      background: ${color.orange5};
-      border: 2px solid ${color.orange};
-      font-weight: 700;
-    `}
 `;
 
 const StyledButton = styled.button`
@@ -86,18 +37,7 @@ const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
 const Button = (props) => {
-  return props.to ? (
-    <StyledLink
-      {...props}
-      white={props.white ? 1 : 0}
-      closed={props.closed ? 1 : 0}
-      full={props.full ? 1 : 0}
-      hover={props.hover ? 1 : 0}
-      active={props.active ? 1 : 0}
-    />
-  ) : (
-    <StyledButton {...props} />
-  );
+  return props.to ? <StyledLink {...props} /> : <StyledButton {...props} />;
 };
 
 export default Button;

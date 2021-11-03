@@ -9,8 +9,6 @@ const WritePage = () => {
     <>
       <HeaderContaner />
       <EditorContainer />
-      <CommnetContainer />
-      <PostButton />
     </>
   );
 };
