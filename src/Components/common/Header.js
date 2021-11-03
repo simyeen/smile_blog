@@ -1,13 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useCallback, useContext } from "react";
+import styled, { css } from "styled-components";
 import Padding from "./Padding";
 import Button from "./Button";
 import Text from "./Text";
 import Responsive from "./Responsive";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import color from "../../lib/styles/color";
+import { useState } from "react/cjs/react.development";
 
 const HeaderBlock = styled.div`
   position: fixed;
+  z-index: 10;
   width: 100%;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
@@ -23,31 +26,39 @@ const Cotainer = styled.div`
   display: flex;
 `;
 
-const MoveText = styled.p`
+const Category = styled(NavLink)`
   display: inline;
   margin-right: 20px;
+  padding-bottom: 0.3rem;
+  font-size: 1.2rem;
   font-weight: 500;
   &:hover {
     font-weight: 700;
   }
+
+  &.active {
+    color: ${color.orange};
+    border-bottom: 2px solid ${color.orange};
+  }
 `;
 
-const Header = () => {
+const Header = ({ categories }) => {
   return (
     <>
       <HeaderBlock>
         <Wrapper>
           <h1>스마일 블로그 😁</h1>
           <Cotainer>
-            <Link to="/">
-              <MoveText>홈</MoveText>
-            </Link>
-            <Link to="/write">
-              <MoveText>글 쓰기</MoveText>
-            </Link>
-            <Link to="/admin">
-              <MoveText>관리하기</MoveText>
-            </Link>
+            {categories.map((c) => (
+              <Category
+                exact={c.content === "홈"}
+                to={c.link}
+                key={c.content}
+                activeClassName="active"
+              >
+                {c.content}
+              </Category>
+            ))}
           </Cotainer>
         </Wrapper>
       </HeaderBlock>
