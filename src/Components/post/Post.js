@@ -7,24 +7,22 @@ import Text from "../common/Text";
 const PostBlock = styled.div`
   display: block;
   width: 300px;
-  height: 350px;
+  height: 200px;
+  padding: 20px;
   margin-right: 1.6rem;
   margin-bottom: 1.6rem;
+  border-radius: 10px;
+  background-color: ${color.gray[50]};
   @media only screen and (max-width: 413px) {
     margin-right: 0;
   }
   cursor: pointer;
+  &:hover {
+    background-color: ${color.gray[100]};
+  }
 `;
 
-const PostImg = styled.img`
-  width: 100%;
-  height: 200px;
-  background-color: ${color.gray[50]};
-`;
-
-const PostData = styled.div``;
-
-const PostTitle = styled.div``;
+const PostDate = styled.div``;
 
 const PostDesc = styled.div``;
 
@@ -33,13 +31,16 @@ const Post = ({ post, history }) => {
     history.push(`/postView/${post.id}`);
   };
 
+  const { title, date, desc } = post;
+
   return (
     <PostBlock onClick={onMove}>
-      <PostImg />
       {console.log(post)}
-      <PostData>{post.date}</PostData>
-      <Text>{post.title}</Text>
-      <PostDesc dangerouslySetInnerHTML={{ __html: `${post.desc}` }}></PostDesc>
+      <PostDate>{date}</PostDate>
+      <Text fontSize={25}>{title}</Text>
+      <PostDesc>
+        {desc.length < 150 ? `${desc}` : `${desc.slice(0, 150)}...`}
+      </PostDesc>
     </PostBlock>
   );
 };

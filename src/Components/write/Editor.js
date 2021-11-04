@@ -7,7 +7,10 @@ import Line from "../common/Line";
 import Padding from "../common/Padding";
 
 const EditorBlock = styled(Form)`
-  height: 80vh;
+  height: 600px;
+  @media only screen and (min-height: 800px) {
+    height: 100%;
+  }
 `;
 
 const TitleInput = styled.input`
@@ -16,6 +19,10 @@ const TitleInput = styled.input`
   border: none;
   margin-bottom: 0.8rem;
   width: 100%;
+`;
+
+const QuillBox = styled.div`
+  height: 100%;
 `;
 
 const Editor = ({ handleTitle, setDesc }) => {
@@ -28,7 +35,7 @@ const Editor = ({ handleTitle, setDesc }) => {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
-        setDesc(quill.root.innerHTML);
+        setDesc(quill.getText());
       });
     }
   }, [quill]);
@@ -39,7 +46,7 @@ const Editor = ({ handleTitle, setDesc }) => {
         <TitleInput placeholder="제목을 입력해주세요." onChange={handleTitle} />
         <Line />
         <Padding height={3.2} />
-        <div ref={quillRef} />
+        <QuillBox ref={quillRef} />
       </EditorBlock>
     </>
   );

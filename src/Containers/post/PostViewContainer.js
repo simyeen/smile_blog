@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import PostView from "../../Components/post/PostView";
 import { postRef, firebaseInstance } from "../../firebase";
@@ -27,7 +27,7 @@ const PostViewContainer = ({ match, history }) => {
         const getList = snapshot.docs.map((doc) => ({
           ...doc.data(),
         }));
-        console.log(getList);
+
         setPostComments(getList);
       });
     } catch (error) {
@@ -41,8 +41,7 @@ const PostViewContainer = ({ match, history }) => {
 
   const onInsert = async (text) => {
     if (text === "") {
-      console.log(cid);
-      // alert("내용을 입력해주세요.");
+      alert("내용을 입력해주세요.");
       return;
     }
 
@@ -56,12 +55,8 @@ const PostViewContainer = ({ match, history }) => {
     };
 
     try {
-      const data = await commentRef
-        .doc(String(newId))
-        .set(comment)
-        .then((doc) => console.log(doc));
-
-      commentRef.doc(postId).update({ cnt: newId });
+      await commentRef.doc(String(newId)).set(comment);
+      await commentRef.doc(postId).update({ cnt: newId });
     } catch (e) {
       console.log(e);
     }
@@ -109,6 +104,7 @@ const PostViewContainer = ({ match, history }) => {
     }
   };
 
+  // unmounting setForm
   useEffect(() => {
     return () => {
       setForm({});

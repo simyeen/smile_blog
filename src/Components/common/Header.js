@@ -30,10 +30,10 @@ const Category = styled(NavLink)`
   padding-bottom: 0.3rem;
   font-size: 1.2rem;
   font-weight: 500;
+
   &:hover {
     font-weight: 700;
   }
-
   &.active {
     color: ${color.orange};
     border-bottom: 2px solid ${color.orange};

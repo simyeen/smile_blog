@@ -6,13 +6,13 @@ import Text from "../common/Text";
 import Button from "../common/Button";
 import Padding from "../common/Padding";
 
-const PostViewBlock = styled(Form)`
-  height: 100vh;
-`;
+const PostViewBlock = styled(Form)``;
 
 const Row = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const PostData = styled.div`
@@ -29,7 +29,6 @@ const PostTitle = styled(Text)`
 const PostDesc = styled.div``;
 
 const CommentBlock = styled.div`
-  border: 1px solid;
   background-color: ${color.gray[100]};
   padding: 15px 15px;
   border: none;
@@ -37,20 +36,43 @@ const CommentBlock = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  width: 100px;
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+`;
+
+const RemoveButton = styled(Button)`
+  font-size: 1rem;
+  margin: 0;
+  padding: 0px;
+  width: 45px;
   height: 30px;
 `;
 
 const CommentInput = styled.input`
   width: 100%;
   height: 30px;
+  padding: 10px;
   margin-bottom: 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
 `;
 
 const CommentBox = styled.div`
   width: 100%;
-  height: 30px;
   background-color: ${color.orange5};
+`;
+
+const CommentRow = styled.div`
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-radius: 5px;
 `;
 
 const PostView = ({
@@ -69,8 +91,8 @@ const PostView = ({
     <PostViewBlock>
       <Row>
         {form && <PostTitle>{title}</PostTitle>}
-        <StyledButton onClick={onEdit}>글 수정하기</StyledButton>
-        <StyledButton onClick={onPostRemove}>글 삭제하기</StyledButton>
+        <StyledButton onClick={onEdit}>수정하기</StyledButton>
+        <StyledButton onClick={onPostRemove}>삭제하기</StyledButton>
       </Row>
       {form && <PostData>{date} 작성</PostData>}
       <Padding />
@@ -78,8 +100,10 @@ const PostView = ({
         <PostDesc dangerouslySetInnerHTML={{ __html: `${desc}` }}></PostDesc>
       )}
       <Padding height={3} />
-      <PostTitle style={{ fontSize: "18px" }}>댓글을 달아주세요!</PostTitle>
-      <Padding height={1} />
+      <PostTitle style={{ fontSize: "18px", marginLeft: "5px" }}>
+        댓글을 달아주세요!
+      </PostTitle>
+      <Padding height={3} />
       <CommentBlock>
         <CommentInput
           value={value}
@@ -89,19 +113,20 @@ const PostView = ({
         {postComments.map((c, idx) => {
           return (
             <CommentBox key={idx}>
-              <Row>
-                <Text>{c.text}</Text>
-                <StyledButton
+              <CommentRow>
+                <Text fontSize={16}>{c.text}</Text>
+                <RemoveButton
                   onClick={() => {
                     onRemove(c.id);
                   }}
                 >
-                  삭제하기
-                </StyledButton>
-              </Row>
+                  삭제
+                </RemoveButton>
+              </CommentRow>
             </CommentBox>
           );
         })}
+        <Padding height={7} />
         <Row>
           <StyledButton onClick={onSubmit}>등록하기</StyledButton>
         </Row>

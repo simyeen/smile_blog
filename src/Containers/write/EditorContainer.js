@@ -5,7 +5,9 @@ import Editor from "../../Components/write/Editor";
 import PostButton from "../../Components/write/PostButton";
 import { postRef, firebaseInstance } from "../../firebase";
 
-const EditorContainerBlock = styled.div``;
+const EditorContainerBlock = styled.div`
+  height: 100%;
+`;
 
 const EditorContainer = ({ history, match }) => {
   const [title, setTitle] = useState("");
