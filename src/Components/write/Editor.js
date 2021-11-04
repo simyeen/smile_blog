@@ -18,7 +18,7 @@ const TitleInput = styled.input`
   width: 100%;
 `;
 
-const Editor = ({ handleTitle, setDesc }) => {
+const Editor = ({ handleTitle, setDesc, onTest }) => {
   const placeholder = "글을 작성해 주세요.";
 
   const { quill, quillRef } = useQuill({
@@ -29,8 +29,6 @@ const Editor = ({ handleTitle, setDesc }) => {
     if (quill) {
       quill.on("text-change", (delta, oldDelta, source) => {
         setDesc(quill.root.innerHTML);
-        //console.log(quill.getText()); // Get text only
-        //console.log(quill.root.innerHTML); // Get innerHTML using quill
       });
     }
   }, [quill]);
