@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Editor from "../../Components/write/Editor";
 import PostButton from "../../Components/write/PostButton";
-import db from "../../firebase";
+import { postRef, firebaseInstance } from "../../firebase";
 
 const EditorContainerBlock = styled.div``;
 
@@ -25,26 +25,34 @@ const EditorContainer = ({ history }) => {
     return true;
   };
 
-  const onSubmit = () => {
+  const onSubmit = async (e) => {
     const form = {
       title: title,
       desc: desc,
       date: new Date().toLocaleString(),
-      comments: [],
+      timestamp: firebaseInstance.firestore.FieldValue.serverTimestamp(),
     };
 
     if (!checkForm(form)) return;
     const postConfirm = window.confirm("글을 작성하시겠습니까?");
     if (!postConfirm) return;
 
+    e.preventDefault();
     console.log(form);
-    db.collection("post")
-      .add(form)
-      .then((data) => {
-        console.log("포스팅 성공", data);
-        history.push("/");
-      })
-      .catch((e) => console.log("error발생", e));
+
+    try {
+      const data = await postRef.add(form).then((post) => {
+        postRef
+          .doc(post.id)
+          .collection("comments")
+          .doc(post.id)
+          .set({ init: "commnetField" });
+      });
+      console.log(data);
+      history.push("/");
+    } catch (e) {
+      console.log("error발생", e);
+    }
   };
 
   const onCancel = () => {
@@ -56,7 +64,7 @@ const EditorContainer = ({ history }) => {
       );
       if (!cancelConfirm) return;
     }
-    history.goBack();
+    history.push("/");
   };
 
   return (

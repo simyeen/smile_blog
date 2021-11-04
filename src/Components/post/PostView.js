@@ -53,7 +53,15 @@ const CommentBox = styled.div`
   background-color: ${color.orange5};
 `;
 
-const PostView = ({ form, value, comments, onSubmit, onRemove, onChange }) => {
+const PostView = ({
+  form,
+  value,
+  postComments,
+  onPostRemove,
+  onSubmit,
+  onRemove,
+  onChange,
+}) => {
   const { title, desc, date } = form;
 
   return (
@@ -61,7 +69,7 @@ const PostView = ({ form, value, comments, onSubmit, onRemove, onChange }) => {
       <Row>
         <PostTitle>{title}</PostTitle>
         <StyledButton>글 수정하기</StyledButton>
-        <StyledButton>글 삭제하기</StyledButton>
+        <StyledButton onClick={onPostRemove}>글 삭제하기</StyledButton>
       </Row>
       <PostData>{date} 작성</PostData>
       <Padding />
@@ -75,7 +83,7 @@ const PostView = ({ form, value, comments, onSubmit, onRemove, onChange }) => {
           placeholder="입력하기"
           onChange={onChange}
         ></CommentInput>
-        {comments.map((c, idx) => {
+        {postComments.map((c, idx) => {
           return (
             <CommentBox key={idx}>
               <Row>
