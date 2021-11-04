@@ -5,7 +5,6 @@ import "quill/dist/quill.snow.css";
 import Form from "../common/Form";
 import Line from "../common/Line";
 import Padding from "../common/Padding";
-import { useRef } from "react/cjs/react.production.min";
 
 const EditorBlock = styled(Form)`
   height: 80vh;
@@ -19,7 +18,7 @@ const TitleInput = styled.input`
   width: 100%;
 `;
 
-const Editor = ({ handleTitle, setDesc, isUpdate, edifForm }) => {
+const Editor = ({ handleTitle, setDesc }) => {
   const placeholder = "글을 작성해 주세요.";
 
   const { quill, quillRef } = useQuill({

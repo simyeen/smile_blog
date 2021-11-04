@@ -1,6 +1,5 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-// import "firebaseInstance/compat/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -17,5 +16,3 @@ firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 export const dbService = firebase.firestore();
 export const postRef = dbService.collection("post");
-
-// export const storageService = firebase.storage();

@@ -7,10 +7,11 @@ const PostViewContainer = ({ match, history }) => {
   const [form, setForm] = useState({});
   const [postComments, setPostComments] = useState([]);
   const [value, setValue] = useState("");
+  const [cid, setCid] = useState("");
   const { postId } = match.params;
+
   const commentRef = postRef.doc(postId).collection("comments");
-  const nextId = useRef(0);
-  let cnt = 0;
+  let trigger = 0;
 
   // 댓글을 달 때마다 싥시간 렌더링 적용시키기.
   useEffect(() => {
@@ -18,12 +19,15 @@ const PostViewContainer = ({ match, history }) => {
       setForm(doc.data());
     });
     try {
+      commentRef.doc(postId).onSnapshot((doc) => {
+        setCid(doc.data());
+      });
+
       commentRef.orderBy("timestamp").onSnapshot((snapshot) => {
         const getList = snapshot.docs.map((doc) => ({
           ...doc.data(),
         }));
         console.log(getList);
-        nextId.current = getList.length;
         setPostComments(getList);
       });
     } catch (error) {
@@ -33,16 +37,19 @@ const PostViewContainer = ({ match, history }) => {
     return () => {
       setPostComments([]);
     };
-  }, [cnt]);
+  }, [trigger]);
 
   const onInsert = async (text) => {
     if (text === "") {
-      alert("내용을 입력해주세요.");
+      console.log(cid);
+      // alert("내용을 입력해주세요.");
       return;
     }
-    console.log(nextId.current);
+
+    const newId = cid["cnt"] + 1;
+    console.log("newId", newId);
     const comment = {
-      id: nextId.current,
+      id: newId,
       text,
       date: new Date().toLocaleString(),
       timestamp: firebaseInstance.firestore.FieldValue.serverTimestamp(),
@@ -50,29 +57,24 @@ const PostViewContainer = ({ match, history }) => {
 
     try {
       const data = await commentRef
-        .doc(String(nextId.current))
+        .doc(String(newId))
         .set(comment)
         .then((doc) => console.log(doc));
+
+      commentRef.doc(postId).update({ cnt: newId });
     } catch (e) {
       console.log(e);
     }
-
+    trigger += 1;
     setPostComments(postComments.concat(comment));
-    nextId.current += 1;
-    cnt += 1;
   };
 
   const onRemove = async (id) => {
-    const ok = window.confirm("메세지를 삭제하시겠습니까?");
-    if (ok) {
-      try {
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    const ok = window.confirm("댓글 삭제하시겠습니까?");
+    if (!ok) return;
 
     try {
-      const data = await commentRef.doc(String(id)).delete();
+      await commentRef.doc(String(id)).delete();
     } catch (e) {
       console.log(e);
     }
@@ -99,14 +101,19 @@ const PostViewContainer = ({ match, history }) => {
     );
     if (ok) {
       history.goBack();
-
       try {
-        const data = await postRef.doc(postId).delete();
+        await postRef.doc(postId).delete();
       } catch (e) {
         console.log(e);
       }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      setForm({});
+    };
+  }, []);
 
   return (
     <>
