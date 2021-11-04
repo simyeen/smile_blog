@@ -16,6 +16,7 @@ const StyledText = styled.p`
     css`
       font-weight: ${props.fontWeight};
     `}
+
   ${(props) =>
     props.fontSize &&
     css`

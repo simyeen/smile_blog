@@ -7,7 +7,7 @@ import Text from "../common/Text";
 const PostBlock = styled.div`
   display: block;
   width: 300px;
-  height: 200px;
+  height: 300px;
   padding: 20px;
   margin-right: 1.6rem;
   margin-bottom: 1.6rem;
@@ -35,9 +35,10 @@ const Post = ({ post, history }) => {
 
   return (
     <PostBlock onClick={onMove}>
-      {console.log(post)}
       <PostDate>{date}</PostDate>
-      <Text fontSize={25}>{title}</Text>
+      <Text fontSize={25}>
+        {desc.length < 17 ? `${desc}` : `${desc.slice(0, 17)}...`}
+      </Text>
       <PostDesc>
         {desc.length < 150 ? `${desc}` : `${desc.slice(0, 150)}...`}
       </PostDesc>

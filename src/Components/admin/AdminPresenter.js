@@ -1,8 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 import Form from "../common/Form";
 import Text from "../common/Text";
 import Padding from "../common/Padding";
+import color from "../../lib/styles/color";
+import AdminPost from "./AdminPost";
+import AdminCommnet from "./AdminCommnet";
 
 const AdminPresenterBlock = styled(Form)``;
 
@@ -16,24 +19,59 @@ const Block = styled.div`
   border-right: 1px solid;
 `;
 
-const AdminPresenter = ({ postList, commentList }) => {
+const StyledText = styled(Text)`
+  &:hover {
+    font-weight: 800;
+  }
+  cursor: pointer;
+
+  ${(props) =>
+    props.active &&
+    css`
+      font-weight: 800;
+    `}
+`;
+
+const Col = styled.div`
+  flex-direction: column;
+`;
+
+const AdminPresenter = ({ postList, commentList, onToggle, toggle }) => {
   return (
     <AdminPresenterBlock>
       <Container>
         <Block>
-          <Text>글 관리</Text>
           <Padding />
-          <Text>댓글 관리</Text>
+          <StyledText
+            active={toggle === 0}
+            onClick={() => {
+              onToggle(0);
+            }}
+          >
+            글 관리
+          </StyledText>
+          <Padding />
+          <StyledText
+            active={toggle === 1}
+            onClick={() => {
+              onToggle(1);
+            }}
+          >
+            댓글 관리
+          </StyledText>
         </Block>
-        <Block>
-          {postList.map((post, idx) => (
-            <p key={idx}>{post.title}</p>
-          ))}
+        <Col>
+          {console.log(postList)}
+          {console.log(commentList)}
 
-          {commentList.map((c, idx) => (
-            <p key={idx}>{c.text}</p>
-          ))}
-        </Block>
+          {toggle === 0 &&
+            postList.map((post, idx) => <AdminPost key={idx} {...{ post }} />)}
+
+          {toggle === 1 &&
+            commentList.map((comment, idx) => (
+              <AdminCommnet key={idx} {...{ comment }} />
+            ))}
+        </Col>
       </Container>
     </AdminPresenterBlock>
   );

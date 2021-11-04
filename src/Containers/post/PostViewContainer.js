@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import PostView from "../../Components/post/PostView";
-import { postRef, firebaseInstance } from "../../firebase";
+import { postRef, allCommentsRef, firebaseInstance } from "../../firebase";
 
 const PostViewContainer = ({ match, history }) => {
   const [form, setForm] = useState({});
@@ -49,12 +49,14 @@ const PostViewContainer = ({ match, history }) => {
     console.log("newId", newId);
     const comment = {
       id: newId,
+      frKey: postId,
       text,
       date: new Date().toLocaleString(),
       timestamp: firebaseInstance.firestore.FieldValue.serverTimestamp(),
     };
 
     try {
+      await allCommentsRef.add(comment);
       await commentRef.doc(String(newId)).set(comment);
       await commentRef.doc(postId).update({ cnt: newId });
     } catch (e) {

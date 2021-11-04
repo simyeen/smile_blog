@@ -16,3 +16,4 @@ firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 export const dbService = firebase.firestore();
 export const postRef = dbService.collection("post");
+export const allCommentsRef = dbService.collection("allComments");
