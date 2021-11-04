@@ -56,6 +56,7 @@ const CommentBox = styled.div`
 const PostView = ({
   form,
   value,
+  onEdit,
   postComments,
   onPostRemove,
   onSubmit,
@@ -67,13 +68,15 @@ const PostView = ({
   return (
     <PostViewBlock>
       <Row>
-        <PostTitle>{title}</PostTitle>
-        <StyledButton>글 수정하기</StyledButton>
+        {form && <PostTitle>{title}</PostTitle>}
+        <StyledButton onClick={onEdit}>글 수정하기</StyledButton>
         <StyledButton onClick={onPostRemove}>글 삭제하기</StyledButton>
       </Row>
-      <PostData>{date} 작성</PostData>
+      {form && <PostData>{date} 작성</PostData>}
       <Padding />
-      <PostDesc dangerouslySetInnerHTML={{ __html: `${desc}` }}></PostDesc>
+      {form && (
+        <PostDesc dangerouslySetInnerHTML={{ __html: `${desc}` }}></PostDesc>
+      )}
       <Padding height={3} />
       <PostTitle style={{ fontSize: "18px" }}>댓글을 달아주세요!</PostTitle>
       <Padding height={1} />

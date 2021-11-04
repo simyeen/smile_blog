@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import color from "../../lib/styles/color";
 
 const StyledText = styled.p`
   margin: 0;

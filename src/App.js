@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Route component={HomePage} path="/" exact />
-      <Route component={WritePage} path="/write" />
+      <Route component={WritePage} path={["/write/:postId", "/write"]} />
       <Route component={AdminPage} path="/admin" />
       <Route component={PostViewPage} path="/postView/:postId" />
     </>

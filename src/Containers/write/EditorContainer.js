@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Editor from "../../Components/write/Editor";
@@ -7,9 +7,21 @@ import { postRef, firebaseInstance } from "../../firebase";
 
 const EditorContainerBlock = styled.div``;
 
-const EditorContainer = ({ history }) => {
+const EditorContainer = ({ history, match }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [edifForm, setEditForm] = useState({ title: "제목시작", desc: "" });
+  const { postId } = match.params;
+
+  useEffect(() => {
+    if (postId !== undefined) {
+      setIsUpdate(true);
+      postRef.doc(postId).onSnapshot((doc) => {
+        setEditForm(doc.data());
+      });
+    }
+  }, []);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -40,6 +52,19 @@ const EditorContainer = ({ history }) => {
     e.preventDefault();
     console.log(form);
 
+    if (isUpdate) {
+      try {
+        postRef.doc(postId).update({
+          title: title,
+          desc: desc,
+        });
+      } catch (error) {
+        console.log("error발생", e);
+      }
+      history.push("/");
+      return;
+    }
+
     try {
       const data = await postRef.add(form).then((post) => {
         postRef
@@ -64,13 +89,18 @@ const EditorContainer = ({ history }) => {
       );
       if (!cancelConfirm) return;
     }
-    history.push("/");
+    history.goBack();
   };
 
   return (
     <EditorContainerBlock>
-      <Editor {...{ handleTitle }} {...{ setDesc }} />
-      <PostButton {...{ onSubmit }} {...{ onCancel }} />
+      <Editor
+        {...{ handleTitle }}
+        {...{ setDesc }}
+        {...{ isUpdate }}
+        {...{ edifForm }}
+      />
+      <PostButton {...{ isUpdate }} {...{ onSubmit }} {...{ onCancel }} />
     </EditorContainerBlock>
   );
 };

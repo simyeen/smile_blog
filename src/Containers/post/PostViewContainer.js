@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
-
-import styled from "styled-components";
 import PostView from "../../Components/post/PostView";
 import { postRef, firebaseInstance } from "../../firebase";
-
-const PostViewContainerBlock = styled.div``;
 
 const PostViewContainer = ({ match, history }) => {
   const [form, setForm] = useState({});
@@ -33,6 +29,10 @@ const PostViewContainer = ({ match, history }) => {
     } catch (error) {
       console.log(error);
     }
+
+    return () => {
+      setPostComments([]);
+    };
   }, [cnt]);
 
   const onInsert = async (text) => {
@@ -42,7 +42,7 @@ const PostViewContainer = ({ match, history }) => {
     }
     console.log(nextId.current);
     const comment = {
-      id: firebaseInstance.firestore.FieldValue.serverTimestamp(),
+      id: nextId.current,
       text,
       date: new Date().toLocaleString(),
       timestamp: firebaseInstance.firestore.FieldValue.serverTimestamp(),
@@ -89,18 +89,22 @@ const PostViewContainer = ({ match, history }) => {
     e.preventDefault();
   };
 
+  const onEdit = () => {
+    history.push(`/write/${postId}`);
+  };
+
   const onPostRemove = async () => {
     const ok = window.confirm(
-      "정말 글을 삭제하시겠습니까? 삭제시 복구할 수 없습니다."
+      "정말 글을 삭제하시겠습니까? 삭제하면 복구할 수 없습니다."
     );
     if (ok) {
       history.goBack();
-    }
 
-    try {
-      const data = await postRef.doc(postId).delete();
-    } catch (e) {
-      console.log(e);
+      try {
+        const data = await postRef.doc(postId).delete();
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -109,6 +113,7 @@ const PostViewContainer = ({ match, history }) => {
       <PostView
         {...{ form }}
         {...{ onPostRemove }}
+        {...{ onEdit }}
         {...{ onSubmit }}
         {...{ onRemove }}
         {...{ onChange }}

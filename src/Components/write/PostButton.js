@@ -14,11 +14,11 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const PostButton = ({ onSubmit, onCancel }) => {
+const PostButton = ({ onSubmit, onCancel, isUpdate }) => {
   return (
     <PostButtonBlock>
       <StyledButton onClick={onSubmit} hover>
-        글 작성하기
+        {isUpdate ? "글 수정하기" : "글 작성하기"}
       </StyledButton>
       <StyledButton onClick={onCancel}>취소하기</StyledButton>
     </PostButtonBlock>
