@@ -36,8 +36,8 @@ const Post = ({ post, history }) => {
   return (
     <PostBlock onClick={onMove}>
       <PostDate>{date}</PostDate>
-      <Text fontSize={25}>
-        {desc.length < 17 ? `${desc}` : `${desc.slice(0, 17)}...`}
+      <Text fontSize={25} style={{ marginTop: "3px", marginBottom: "2px" }}>
+        {title.length < 17 ? `${title}` : `${title.slice(0, 17)}...`}
       </Text>
       <PostDesc>
         {desc.length < 150 ? `${desc}` : `${desc.slice(0, 150)}...`}
